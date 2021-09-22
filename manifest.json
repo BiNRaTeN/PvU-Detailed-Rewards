@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "PvU Detailed Rewards",
-    "version": "1.0.0",
-    "description": "Displays LE/PVU/USD rewards in Marketplace and Dashboard pages. Donate to support: 0xDAD111763fFAE9e7F5B70990A8f2235d8E404D44 ",
+    "version": "1.0.1",
+    "description": "Displays LE/PVU/USD rewards in Marketplace and Dashboard pages.",
     "icons":{
         "24": "icon.png",
         "48": "icon.png",

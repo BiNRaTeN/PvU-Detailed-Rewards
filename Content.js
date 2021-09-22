@@ -49,8 +49,8 @@ function moreData() {
     );
     var lehour = le / hour;
     var lemonth = lehour * 24 * 30;
-    var pvumonth = lemonth / 150;
-    var pvuday = (lehour * 24) / 150;
+    var pvumonth = lemonth / 500;
+    var pvuday = (lehour * 24) / 500;
     var USDmonth = pvumonth * pvuprice;
     var USDday = USDmonth / 30;
 
