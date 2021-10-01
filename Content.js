@@ -4,20 +4,35 @@ const api_url =
 
 //{"updated_at":1632242470724,"data":{"name":"Plant vs Undead Token","symbol":"PVU","price":"5.71257521362660923829106251039","price_BNB":"0.01560120504464614168579536763741"}}
 
+var lepvu = 550;
+let rate = 1.1;
+let fecha = new Date();
+let startDate = 1633046400000;
+let day = 86400000;
+let week = day * 7;
+let now = Date.now().valueOf();
+let weeksFromStart = Math.trunc((now - startDate) / week);
+for (let i = 0; i < weeksFromStart; i++) {
+  lepvu = lepvu * rate;
+}
+
+//console.log(weeksFromStart);
+//console.log(lepvu);
+
 var pvuprice;
 async function getapi(url) {
   const response = await fetch(url);
   var info = await response.text();
   var parsed = JSON.parse(info);
   pvuprice = Number(parsed.data.price);
-  console.log("Price: " + pvuprice);
+  //console.log("Price: " + pvuprice);
 }
 
 getapi(api_url);
 
 var observer = new MutationObserver(function () {
   if (document.getElementsByClassName("le tw-text-center")) {
-    console.log("table has appeared.");
+    //console.log("table has appeared.");
     moreData();
   }
 });
@@ -40,7 +55,7 @@ function moreData() {
   );
 
   observer.disconnect();
-
+  console.log(lepvu);
   for (let i = 0; i < data.length; i++) {
     var num = data[i].innerHTML;
     var le = Number(num.substring(num.indexOf("LE") + 4, num.indexOf("/")));
@@ -49,10 +64,16 @@ function moreData() {
     );
     var lehour = le / hour;
     var lemonth = lehour * 24 * 30;
-    var pvumonth = lemonth / 500;
-    var pvuday = (lehour * 24) / 500;
+    //var pvumonth = lemonth / lepvu;
+    var pvumonth =
+      ((lemonth / 30) * 7) / lepvu +
+      ((lemonth / 30) * 7) / (lepvu * rate) +
+      ((lemonth / 30) * 7) / (lepvu * rate * rate) +
+      ((lemonth / 30) * 7) / (lepvu * rate * rate * rate) +
+      ((lemonth / 30) * 2) / (lepvu * rate * rate * rate * rate);
+    var pvuday = (lehour * 24) / lepvu;
     var USDmonth = pvumonth * pvuprice;
-    var USDday = USDmonth / 30;
+    var USDday = pvuday * pvuprice;
 
     dataToChange[i].innerHTML =
       "\n </div><p style='color:yellow'> LE/h: " +
